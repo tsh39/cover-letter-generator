@@ -49,8 +49,14 @@ export default function FileUpload({ onUploadComplete, sessionId }) {
       });
 
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Upload failed.');
+        const contentType = res.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const data = await res.json();
+          throw new Error(data.error || 'Upload failed.');
+        } else {
+          // If the backend is down, Vite proxy returns a 504 Gateway Timeout HTML page
+          throw new Error(`Server connection failed (HTTP ${res.status}). Ensure the backend server is running.`);
+        }
       }
 
       const data = await res.json();

@@ -5,7 +5,7 @@ const anthropic = new Anthropic();
 const SYSTEM_PROMPT = `You are a company research analyst. Given a company name or domain and a job posting excerpt, research the company and produce a concise company brief.
 
 Respond in JSON only — no markdown fences, no commentary.
-Each string field must be 1–2 concise sentences maximum.
+Each string field must be 1-2 concise sentences maximum.
 
 Required JSON schema:
 {
