@@ -2,11 +2,13 @@ import { Router } from 'express';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { saveFiles, clearCachedResume } from '../storage/userFiles.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const UPLOAD_DIR = path.join(__dirname, '..', '..', 'storage', '_uploads');
+fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 const upload = multer({
   dest: UPLOAD_DIR,
